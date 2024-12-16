@@ -9,23 +9,8 @@ A modern Student Management System 👨‍🎓 with features like Interactive Da
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FAkash1362000%2FDjango_Student_Management_System%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Akash1362000/Django_Student_Management_System/graphs/commit-activity)
 
-
-Checkout the live Website [here](https://student-management-system-4jym.onrender.com/)!
-
-Find the detailed project report [here](https://drive.google.com/file/d/1DTqbRJBoFuCHJdtb0SJwdiLgE6iOgjUG/view?usp=sharing)! 📜
-
-### Meet the Developers ✨🌟
-
-<table>
-		<tr>
-			<td align="center"><img src="https://i.imgur.com/ZwcK1xV.jpg"  width=100px;"><br /><sub><b>Akash Shrivastava</b></sub><br/><a href="https://github.com/Akash1362000">👨‍💻🚴‍♂️📸</a></td>
-		   <td align="center"><img src="https://i.imgur.com/zvN556m.jpg"  width=100px;"><br /><sub><b>Akanksha Tamboli</b></sub><br/><a href="https://github.com/akankshast">💻🎨</a></td>
-			<td align="center"><img src="https://i.imgur.com/fVE1MSw.jpg"  width=100px;"><br /><sub><b>Shreejit Nair</b></sub><br/><a href="https://github.com/ShreejitNair">🎓🏏📱</a></td>			<td align="center"><img src="https://i.imgur.com/oKHebZM.jpg"  width=100px;"><br /><sub><b>Samiksha Naik</b></sub><br/><a href="https://github.com/samiksha8888989">💃📸</a></td>
-		</tr>
-
-</table>
-
 ## Development 👨‍💻
+
 Note : Make sure you have Python version 3.8+
 
 Environment Setup 🚀
@@ -107,14 +92,16 @@ Every time you want to open the application in browser, make sure you run:
 `$ python manage.py runserver`
 
 ---
+
 ## Docker Setup (Optional) ![](https://skillicons.dev/icons?i=docker)
 
 If you want to use Docker to run this project, you need to do the following steps:
+
 - Install Docker for your OS from [here](https://www.docker.com/products/docker-desktop/)
 - Run `docker --version` and `docker compose --version` [In Windows, you need to run `docker-compose --version` to check the version]
 - If you see both the versions, then Docker is successfully installed on your system and you can follow along
 - If you don't see the version, check with your Docker installation
-- Open `docker-compose.yml` file and update the value of `CAPTCHA_SECRET` with your generated key. You can generate it from [here](http://www.google.com/recaptcha/admin) 
+- Open `docker-compose.yml` file and update the value of `CAPTCHA_SECRET` with your generated key. You can generate it from [here](http://www.google.com/recaptcha/admin)
 - Run `docker compose up -d`
 - Run `docker exec -it student_management_system sh -c "python manage.py createsuperuser"` to create a new superuser
 - Access the app at [http://localhost:8000](http://localhost:8000)
@@ -127,10 +114,6 @@ If you want to use Docker to run this project, you need to do the following step
 ## A Glimpse of the Dashboard 😍
 
 ![Dashboard](https://i.imgur.com/vN530l3.png)
-
-## Stargazers
-
-[![Stargazers](https://reporoster.com/stars/Akash1362000/Django_Student_Management_System)](https://github.com/Akash1362000/Django_Student_Management_System/stargazers)
 
 Liked our work? 🤔 Do star [this](https://github.com/Akash1362000/Django_Student_Management_System) repository ⭐ It'll motivate us more 😁
 

@@ -1,0 +1,195 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Student Management System | Log in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="{% static '/image/favicon1.ico' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #00416a, #e4e5e6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login-container {
+        width: 100%;
+        max-width: 420px;
+        padding: 2rem;
+      }
+
+      .logo-container {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .logo-container img {
+        max-width: 200px;
+        height: auto;
+      }
+
+      .login-title {
+        color: white;
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+      }
+
+      .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+      }
+
+      .input-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 0.8rem 1rem 0.8rem 3rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .input-group input:focus {
+        border-color: #00416a;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 65, 106, 0.1);
+      }
+
+      .input-group i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+      }
+
+      .btn-login {
+        width: 100%;
+        padding: 0.8rem;
+        background: #00416a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-login:hover {
+        background: #005688;
+        transform: translateY(-1px);
+      }
+
+      .reset-password {
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .reset-password a {
+        color: #00416a;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .reset-password a:hover {
+        color: #005688;
+        text-decoration: underline;
+      }
+
+      .alert {
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        text-align: center;
+      }
+
+      .alert-danger {
+        background: #ffe6e6;
+        color: #cc0000;
+      }
+
+      .alert-success {
+        background: #e6ffe6;
+        color: #006600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="logo-container">
+        <img src="{% static 'dist/img/logo.png' %}" alt="logo" />
+      </div>
+      <h1 class="login-title">Student Management Portal</h1>
+      <div class="login-card">
+        <p class="login-subtitle">Welcome back! Please sign in to continue</p>
+        <form action="/doLogin" method="post" id="demo-form">
+          {% csrf_token %}
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Email" name="email" required />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-login">Sign In</button>
+          <div class="reset-password">
+            <a href="{% url 'password_reset' %}">Forgot your password?</a>
+          </div>
+          {% if messages %} {% for message in messages %} {% if message.tags ==
+          'error' %}
+          <div class="alert alert-danger">{{ message }}</div>
+          {% endif %} {% if message.tags == 'success' %}
+          <div class="alert alert-success">{{ message }}</div>
+          {% endif %} {% endfor %} {% endif %}
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

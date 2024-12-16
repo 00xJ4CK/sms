@@ -1,0 +1,149 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+    {{ page_title }}
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ page_title }}</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div class="table card-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>S.N</th>
+                                        <th>Name</th>
+                                        <th>Reason</th>
+                                        <th>Date</th>
+                                        <th>Submitted On</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for leave in leaves %}
+                                        <tr>
+                                            <td>{{ leave.id }}</td>
+                                            <td>{{ leave.student_id.admin.first_name }} {{ leave.student_id.admin.last_name }}</td>
+                                            <td>{{ leave.leave_message }}</td>
+                                            <td>{{ leave.leave_date }}</td>
+                                            <td>{{ leave.created_at }}</td>
+                                            <td>
+                                                {% if leave.leave_status == 0 %}
+                                                    <span class="badge badge-warning">Pending</span>
+                                                {% elif leave.leave_status == 1 %}
+                                                    <span class="badge badge-success">Approved</span>
+                                                {% elif leave.leave_status == -1 %}
+                                                    <span class="badge badge-danger">Rejected</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if leave.leave_status == 0 %}
+                                                    <button data-toggle="modal"
+                                                            data-target="#reply_modal"
+                                                            data-id="{{ leave.id }}"
+                                                            data-name="{{ leave.student_id.admin.first_name }} {{ leave.student_id.admin.last_name }}"
+                                                            class="btn btn-primary reply_open_modal">Reply</button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Reply Modal -->
+    <div class="modal fade"
+         id="reply_modal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="replyModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replyModalLabel">Reply to Leave Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="leave_id">
+                    <p>
+                        Reply to <span id="reply_name"></span>'s Leave Request
+                    </p>
+                    <select id="reply_leave_status" class="form-control">
+                        <option value="">-- Select Status --</option>
+                        <option value="1">Approve</option>
+                        <option value="-1">Reject</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="reply_btn" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
+{% block custom_js %}
+    <script>
+        $(document).ready(function() {
+            // Handle modal open
+            $('.reply_open_modal').on('click', function() {
+                const button = $(this);
+                const id = button.data('id');
+                const name = button.data('name');
+
+                $('#leave_id').val(id);
+                $('#reply_name').text(name);
+            });
+
+            // Handle reply submission
+            $('#reply_btn').on('click', function() {
+                const id = $('#leave_id').val();
+                const status = $('#reply_leave_status').val();
+
+                if (!status) {
+                    alert('Please select a status');
+                    return;
+                }
+
+                $.ajax({
+                    url: "{% url 'student_leave_view' %}",
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        status: status,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#reply_modal').modal('hide');
+                            alert('Leave response has been saved!');
+                            location.reload();
+                        } else {
+                            alert(response.message || 'Reply could not be sent');
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('An error occurred while processing your request.');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock custom_js %}

@@ -1,0 +1,45 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+    Students Notifications
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">All Notifications</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body ">
+                            <div class="form-group table">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>S.N</th>
+                                            <th>Date</th>
+                                            <th>Notifications</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for notification in notifications %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ notification.created_at }}</td>
+                                                <td>{{ notification.message }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
